@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import GrainOverlay from "@/app/shared/grain";
-import { ImageGrain } from "@/app/shared/grain";
+import { RadarArcs } from "@/app/svg/radar-arcs";
+import GrainOverlay, { ImageGrain } from "@/app/shared/grain";
 
 export default function CtaSection() {
   return (
@@ -54,21 +54,7 @@ export default function CtaSection() {
 
       {/* Content — overlaid on left, aligns with navbar/hero */}
       <div className="relative z-10 flex min-h-[420px] w-full flex-col justify-center px-4 py-16 sm:min-h-[480px] sm:px-6 sm:py-20 lg:min-h-[520px] lg:w-[52%] lg:px-12 lg:py-24">
-        {/* Radar arcs — mirrored from hero, emanating from top-left */}
-        <svg
-          className="pointer-events-none absolute left-0 top-0 z-0 hidden lg:block"
-          width="520"
-          height="520"
-          viewBox="0 0 520 520"
-          fill="none"
-          aria-hidden
-          style={{ transform: "translate(-20%, -25%)" }}
-        >
-          <circle cx="0" cy="0" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-          <circle cx="0" cy="0" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
-          <circle cx="0" cy="0" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-          <circle cx="0" cy="0" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
-        </svg>
+        <RadarArcs variant="cta-top-left" />
 
         <div className="relative z-10 mx-auto max-w-[500px] w-full">
           <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/50">

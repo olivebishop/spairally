@@ -1,68 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { IconCheck } from "@/app/svg/icon-check";
+import { RadarArcs } from "@/app/svg/radar-arcs";
 import GrainOverlay, { NoiseTexture } from "@/app/shared/grain";
-
-const TIERS = [
-  {
-    name: "Supporter",
-    price: "$250",
-    description:
-      "Perfect for individuals and small teams who want to back our mission.",
-    features: [
-      "Website recognition",
-      "Social media shoutout",
-      "Early feature updates",
-      "Community access",
-    ],
-  },
-  {
-    name: "Technology Sponsor",
-    price: "$1,000",
-    description:
-      "For companies that want meaningful recognition and early product access.",
-    features: [
-      "Logo on sponsor page",
-      "Launch announcement feature",
-      "Early beta access",
-      "Priority support channel",
-      "Quarterly product briefing",
-    ],
-    featured: true,
-  },
-  {
-    name: "Security Partner",
-    price: "$5,000",
-    description:
-      "Strategic partnership with premium visibility and direct collaboration access.",
-    features: [
-      "Premium branding placement",
-      "Press release mention",
-      "Direct engineering access",
-      "Co-marketing opportunities",
-      "Advisory board invitation",
-      "Custom integration support",
-    ],
-  },
-] as const;
-
-const BENEFITS = [
-  {
-    title: "Faster Development",
-    description:
-      "Funding accelerates our roadmap by allowing us to hire and ship without constraints.",
-  },
-  {
-    title: "Real World Tests",
-    description:
-      "We invest in real world tests in order to improve our products' performance in real world scenarios.",
-  },
-  {
-    title: "Global Reach",
-    description:
-      "Infrastructure funding helps us serve users reliably across 172 countries.",
-  },
-] as const;
+import {
+  SPONSORSHIP_BENEFITS,
+  SPONSORSHIP_LEGAL_NOTICE,
+  SPONSORSHIP_TIERS,
+} from "@/data/sponsorship";
 
 export default function SponsorshipPage() {
   return (
@@ -74,21 +20,7 @@ export default function SponsorshipPage() {
       >
         <GrainOverlay position="absolute" />
 
-        {/* Radar arcs — top-right */}
-        <svg
-          className="pointer-events-none absolute top-0 right-0 z-0 hidden lg:block"
-          width="520"
-          height="520"
-          viewBox="0 0 520 520"
-          fill="none"
-          aria-hidden
-          style={{ transform: "translate(20%, -25%)" }}
-        >
-          <circle cx="520" cy="0" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-          <circle cx="520" cy="0" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
-          <circle cx="520" cy="0" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-          <circle cx="520" cy="0" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
-        </svg>
+        <RadarArcs variant="sponsor-top-right" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="max-w-xl">
@@ -105,7 +37,7 @@ export default function SponsorshipPage() {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:mt-16">
-            {TIERS.map((tier) => (
+            {SPONSORSHIP_TIERS.map((tier) => (
               <div
                 key={tier.name}
                 className={`relative flex flex-col overflow-hidden rounded-none border p-6 sm:p-8 ${
@@ -144,18 +76,7 @@ export default function SponsorshipPage() {
                         key={feature}
                         className="flex items-start gap-2.5 text-[14px] text-white/60"
                       >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="mt-0.5 shrink-0 text-white/40"
-                          aria-hidden
-                        >
-                          <path d="M20 6L9 17l-5-5" />
-                        </svg>
+                        <IconCheck className="mt-0.5 shrink-0 text-white/40" />
                         {feature}
                       </li>
                     ))}
@@ -182,21 +103,7 @@ export default function SponsorshipPage() {
       <section className="relative isolate overflow-hidden bg-[#080808] px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
         <GrainOverlay position="absolute" />
 
-        {/* Radar arcs — bottom-left */}
-        <svg
-          className="pointer-events-none absolute bottom-0 left-0 z-0 hidden lg:block"
-          width="520"
-          height="520"
-          viewBox="0 0 520 520"
-          fill="none"
-          aria-hidden
-          style={{ transform: "translate(-20%, 30%)" }}
-        >
-          <circle cx="0" cy="520" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-          <circle cx="0" cy="520" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
-          <circle cx="0" cy="520" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-          <circle cx="0" cy="520" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
-        </svg>
+        <RadarArcs variant="sponsor-bottom-left" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
@@ -213,7 +120,7 @@ export default function SponsorshipPage() {
               </p>
 
               <div className="mt-10 space-y-6">
-                {BENEFITS.map((benefit, i) => (
+                {SPONSORSHIP_BENEFITS.map((benefit, i) => (
                   <div
                     key={benefit.title}
                     className="relative overflow-hidden rounded-none border border-white/[0.06] bg-[#111] p-5 sm:p-6"
@@ -261,11 +168,7 @@ export default function SponsorshipPage() {
               Legal Notice
             </h3>
             <p className="mt-3 text-[13px] leading-[1.7] text-white/35 sm:text-[14px]">
-              Sponsorship contributions are classified as business revenue and do
-              not constitute equity, securities, profit-sharing agreements, or any
-              form of ownership interest. Sponsors receive recognition and
-              agreed-upon benefits only. All sponsorships are non-refundable once
-              processed.
+              {SPONSORSHIP_LEGAL_NOTICE}
             </p>
           </div>
         </div>
@@ -275,21 +178,7 @@ export default function SponsorshipPage() {
       <section className="relative isolate overflow-hidden bg-[#080808] px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
         <GrainOverlay position="absolute" />
 
-        {/* Radar arcs */}
-        <svg
-          className="pointer-events-none absolute bottom-0 right-0 z-0 hidden lg:block"
-          width="480"
-          height="480"
-          viewBox="0 0 480 480"
-          fill="none"
-          aria-hidden
-          style={{ transform: "translate(20%, 25%)" }}
-        >
-          <circle cx="480" cy="480" r="120" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-          <circle cx="480" cy="480" r="220" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
-          <circle cx="480" cy="480" r="340" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-          <circle cx="480" cy="480" r="460" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
-        </svg>
+        <RadarArcs variant="sponsor-bottom-right" />
 
         <div className="relative z-10 mx-auto max-w-2xl text-center">
           <h2 className="text-[28px] font-extrabold leading-[1.12] tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">

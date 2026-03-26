@@ -1,4 +1,4 @@
-/** Shared navigation & footer links — single source of truth */
+/** Site navigation & footer links */
 
 export const NAV_LINKS = [
   { label: "About", href: "#about" },

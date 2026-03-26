@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import GrainOverlay, { NoiseTexture } from "@/app/shared/grain";
+import { USE_CASE_MOBILE_CARDS, USE_CASE_SECTION } from "@/data/use-case";
 
 export default function UseCaseSection() {
   return (
@@ -21,12 +22,12 @@ export default function UseCaseSection() {
               id="use-case-heading"
               className="text-[28px] font-extrabold leading-[1.1] tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl xl:text-[52px]"
             >
-              See Every Threat
+              {USE_CASE_SECTION.headingLines[0]}
               <br />
-              Before It Strikes
+              {USE_CASE_SECTION.headingLines[1]}
             </h2>
             <p className="mt-4 max-w-md text-[15px] leading-[1.7] text-white/55 sm:text-base">
-              Three reasons security teams switch to Spairally — and never look back.
+              {USE_CASE_SECTION.subline}
             </p>
           </div>
 
@@ -34,7 +35,7 @@ export default function UseCaseSection() {
             href="#"
             className="inline-flex shrink-0 items-center self-start rounded-none bg-white px-6 py-3 text-[13px] font-semibold text-[#080808] no-underline transition-all hover:bg-white/90 lg:mt-2"
           >
-            Start Protecting Now
+            {USE_CASE_SECTION.ctaLabel}
           </Link>
         </div>
 
@@ -161,59 +162,35 @@ export default function UseCaseSection() {
             />
           </div>
 
-          {/* Mobile-only compact cards — text with stats, no images */}
           <div className="relative flex flex-col gap-3 sm:hidden">
-            <div className="relative overflow-hidden rounded-none border border-white/[0.08] bg-[#111] p-5">
-              <NoiseTexture className="opacity-40" />
-              <div className="relative z-10 flex items-start justify-between">
-                <div>
-                  <p className="text-[15px] font-bold leading-snug text-white">
-                    Spot Concealed Weapons
-                  </p>
-                  <p className="mt-1 text-[13px] leading-snug text-white/50">
-                    Before Anyone Else Does
-                  </p>
-                </div>
-                <div className="ml-4 shrink-0 text-right">
-                  <span className="text-lg font-bold text-white">94%</span>
-                  <p className="text-[10px] text-white/40">Detection Accuracy</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-none border border-white/[0.08] bg-[#0e0e0e] p-5">
-              <NoiseTexture className="opacity-40" />
-              <div className="relative z-10 flex items-start justify-between">
-                <div>
-                  <p className="text-[12px] text-white/40">AI-Powered Real-Time</p>
-                  <p className="text-[15px] font-bold text-white">
-                    Threat Detection Engine
-                  </p>
-                </div>
-                <div className="ml-4 shrink-0 text-right">
-                  <span className="text-lg font-bold text-white">3.2M+</span>
-                  <p className="text-[10px] text-white/40">Threats Daily</p>
+            {USE_CASE_MOBILE_CARDS.map((card) => (
+              <div
+                key={card.title}
+                className="relative overflow-hidden rounded-none border border-white/[0.08] p-5"
+                style={{ backgroundColor: card.bg }}
+              >
+                <NoiseTexture className="opacity-40" />
+                <div className="relative z-10 flex items-start justify-between">
+                  <div>
+                    {"eyebrow" in card && card.eyebrow ? (
+                      <p className="text-[12px] text-white/40">{card.eyebrow}</p>
+                    ) : null}
+                    <p className="text-[15px] font-bold leading-snug text-white">
+                      {card.title}
+                    </p>
+                    {"subtitle" in card && card.subtitle ? (
+                      <p className="mt-1 text-[13px] leading-snug text-white/50">
+                        {card.subtitle}
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="ml-4 shrink-0 text-right">
+                    <span className="text-lg font-bold text-white">{card.statValue}</span>
+                    <p className="text-[10px] text-white/40">{card.statLabel}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-none border border-white/[0.08] bg-[#0c0c0c] p-5">
-              <NoiseTexture className="opacity-40" />
-              <div className="relative z-10 flex items-start justify-between">
-                <div>
-                  <p className="text-[15px] font-bold leading-snug text-white">
-                    Always-On Protection
-                  </p>
-                  <p className="mt-1 text-[13px] leading-snug text-white/50">
-                    When Every Second Counts
-                  </p>
-                </div>
-                <div className="ml-4 shrink-0 text-right">
-                  <span className="text-lg font-bold text-white">99.8%</span>
-                  <p className="text-[10px] text-white/40">Uptime</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

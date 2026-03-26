@@ -1,6 +1,12 @@
 "use client";
 
 import GrainOverlay from "@/app/shared/grain";
+import {
+  BELLA_BODY,
+  BELLA_BULLETS,
+  BELLA_EYEBROW,
+  BELLA_HEADING,
+} from "@/data/bella";
 
 export default function BellaSection() {
   return (
@@ -13,27 +19,19 @@ export default function BellaSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="section-eyebrow">
-              The intelligence behind Spairally
-            </p>
+            <p className="section-eyebrow">{BELLA_EYEBROW}</p>
             <h2
               id="bella-heading"
               className="section-heading text-3xl sm:text-4xl lg:text-5xl xl:text-[52px]"
             >
-              Bella: AI that sees what humans can&apos;t.
+              {BELLA_HEADING}
             </h2>
             <div className="mt-6 h-1 w-12 bg-white/80" />
             <p className="mt-6 text-base leading-[1.7] text-[var(--hero-body)] sm:text-lg">
-              Bella is our proprietary detection engine — trained on millions of
-              scenarios to identify concealed weapons with speed and accuracy no
-              human eye can match.
+              {BELLA_BODY}
             </p>
             <ul className="mt-6 space-y-3">
-              {[
-                "Sub-second detection from video streams",
-                "Continuously learning, never stagnant",
-                "Designed for low false positives",
-              ].map((item) => (
+              {BELLA_BULLETS.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 text-[15px] text-[var(--hero-body)]"

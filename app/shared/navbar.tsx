@@ -3,17 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { NAV_LINKS } from "@/app/shared/links";
+import { MenuCloseIcon, MenuHamburgerIcon } from "@/app/svg/menu-icons";
+import { NAV_LINKS } from "@/data/navigation";
 import { NoiseTexture } from "@/app/shared/grain";
 
 /** Desktop nav bar height — mobile uses `var(--nav-height)` from `.hero-section` in globals.css */
 export const NAV_HEIGHT = 72;
 
-type NavbarProps = {
-  loaded: boolean;
-};
-
-export default function Navbar({ loaded }: NavbarProps) {
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
@@ -62,7 +59,7 @@ export default function Navbar({ loaded }: NavbarProps) {
   return (
     <header
       ref={headerRef}
-      className={`site-header box-border absolute top-0 right-0 left-0 z-30 flex h-[var(--nav-slab-height)] items-start pt-[var(--safe-top)] px-4 sm:px-6 lg:px-12 ${loaded ? "anim-nav" : "opacity-0"}`}
+      className="site-header box-border absolute top-0 right-0 left-0 z-30 flex h-[var(--nav-slab-height)] items-start pt-[var(--safe-top)] px-4 sm:px-6 lg:px-12"
     >
       <NoiseTexture className="opacity-30" />
 
@@ -124,21 +121,7 @@ export default function Navbar({ loaded }: NavbarProps) {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen((o) => !o)}
           >
-            {menuOpen ? (
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  fill="currentColor"
-                  d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"
-                />
-              </svg>
-            ) : (
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  fill="currentColor"
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                />
-              </svg>
-            )}
+            {menuOpen ? <MenuCloseIcon /> : <MenuHamburgerIcon />}
           </button>
         </div>
       </div>

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { BentoArcsNarrow, BentoArcsWide } from "@/app/svg/bento-arcs";
 import GrainOverlay, { NoiseTexture } from "@/app/shared/grain";
+import { SOLUTIONS_SECTION } from "@/data/solutions";
 
 export default function SolutionsSection() {
   return (
@@ -21,10 +23,10 @@ export default function SolutionsSection() {
               id="solutions-heading"
               className="text-[28px] font-extrabold leading-[1.12] tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl xl:text-[52px]"
             >
-              Built for the moment it matters.
+              {SOLUTIONS_SECTION.heading}
             </h2>
             <p className="mt-3 text-[15px] leading-[1.7] text-white/45 sm:text-base lg:text-lg">
-              Detect with precision. Protect at scale.
+              {SOLUTIONS_SECTION.subline}
             </p>
           </div>
 
@@ -32,7 +34,7 @@ export default function SolutionsSection() {
             href="#"
             className="inline-flex shrink-0 items-center gap-2 self-start rounded-none bg-white px-6 py-3 text-[13px] font-semibold text-[#080808] no-underline transition-all hover:bg-white/90 lg:self-auto"
           >
-            Start Using Spairally
+            {SOLUTIONS_SECTION.ctaLabel}
           </Link>
         </div>
 
@@ -41,17 +43,7 @@ export default function SolutionsSection() {
           {/* Card 1 — top-left, wide, text-only */}
           <div className="relative flex flex-col justify-between overflow-hidden rounded-none border border-white/[0.08] bg-[#131313] p-6 sm:p-8 lg:col-span-7 lg:row-start-1 lg:min-h-[260px]">
             <NoiseTexture className="opacity-40" />
-            {/* Decorative arcs */}
-            <svg
-              className="pointer-events-none absolute inset-0 z-0 h-full w-full"
-              preserveAspectRatio="none"
-              viewBox="0 0 700 300"
-              aria-hidden
-            >
-              <path d="M500 -20 Q300 160 700 280" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <path d="M550 -10 Q350 170 750 300" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-              <path d="M450 -30 Q250 150 650 260" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-            </svg>
+            <BentoArcsWide className="pointer-events-none absolute inset-0 z-0 h-full w-full" />
 
             <div className="relative z-10 flex items-start justify-between">
               <h3 className="text-xl font-bold tracking-[-0.02em] text-white sm:text-2xl lg:text-[28px]">
@@ -160,17 +152,7 @@ export default function SolutionsSection() {
           {/* Card 4 — bottom-center, text + CTA */}
           <div className="relative flex flex-col justify-between overflow-hidden rounded-none border border-white/[0.08] bg-[#131313] p-6 sm:p-8 lg:col-span-3 lg:row-start-2 lg:min-h-[260px]">
             <NoiseTexture className="opacity-40" />
-            {/* Decorative arcs */}
-            <svg
-              className="pointer-events-none absolute inset-0 z-0 h-full w-full"
-              preserveAspectRatio="none"
-              viewBox="0 0 300 300"
-              aria-hidden
-            >
-              <path d="M220 -20 Q80 150 320 280" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <path d="M260 -10 Q120 160 350 300" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-              <path d="M180 -30 Q40 140 280 260" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-            </svg>
+            <BentoArcsNarrow className="pointer-events-none absolute inset-0 z-0 h-full w-full" />
 
             <div className="relative z-10 flex items-start justify-between">
               <h3 className="text-lg font-bold tracking-[-0.02em] text-white sm:text-xl">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RadarArcs } from "@/app/svg/radar-arcs";
 import GrainOverlay from "@/app/shared/grain";
 
 export default function TermsPage() {
@@ -6,21 +7,7 @@ export default function TermsPage() {
     <main className="relative isolate overflow-hidden bg-[#080808] px-4 py-12 sm:px-6 sm:py-16 lg:px-12 lg:py-20 font-[var(--font-inter),system-ui,sans-serif]">
       <GrainOverlay position="absolute" />
 
-      {/* Radar arcs */}
-      <svg
-        className="pointer-events-none absolute top-0 right-0 z-0 hidden lg:block"
-        width="520"
-        height="520"
-        viewBox="0 0 520 520"
-        fill="none"
-        aria-hidden
-        style={{ transform: "translate(20%, -25%)" }}
-      >
-        <circle cx="520" cy="0" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-        <circle cx="520" cy="0" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
-        <circle cx="520" cy="0" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-        <circle cx="520" cy="0" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
-      </svg>
+      <RadarArcs variant="legal-top-right" />
 
       <div className="relative z-10 mx-auto max-w-3xl">
         <h1 className="text-3xl font-extrabold tracking-[-0.035em] text-white sm:text-4xl lg:text-[42px] leading-[1.12]">
