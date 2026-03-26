@@ -26,6 +26,26 @@ export function ImageGrain({ className = "" }: ImageGrainProps) {
   );
 }
 
+type NoiseTextureProps = {
+  className?: string;
+};
+
+/** Noise texture for card backgrounds — place inside a relative container */
+export function NoiseTexture({ className = "" }: NoiseTextureProps) {
+  return (
+    <div
+      className={`pointer-events-none absolute inset-0 z-[2] ${className}`}
+      style={{
+        backgroundImage: GRAIN_SVG,
+        backgroundSize: "200px 200px",
+        opacity: 0.45,
+        mixBlendMode: "screen",
+      }}
+      aria-hidden
+    />
+  );
+}
+
 const posClass = {
   fixed: "fixed",
   absolute: "absolute",

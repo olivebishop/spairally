@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import GrainOverlay from "@/app/shared/grain";
-import { ImageGrain } from "@/app/shared/grain";
+import GrainOverlay, { NoiseTexture } from "@/app/shared/grain";
 
 export default function AboutSection() {
   return (
@@ -13,7 +12,7 @@ export default function AboutSection() {
     >
       <GrainOverlay position="absolute" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
         <p className="section-eyebrow mb-8">About</p>
         <h2
           id="about-heading"
@@ -25,11 +24,12 @@ export default function AboutSection() {
         {/* Bento grid — cards left, image right (explicit placement) */}
         <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12 lg:gap-4 lg:grid-rows-2">
           {/* Mission — left column */}
-          <div className="lg:col-start-1 lg:col-span-5 lg:row-start-1 rounded-none border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8 lg:p-10">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
+          <div className="relative lg:col-start-1 lg:col-span-5 lg:row-start-1 rounded-none border border-white/[0.08] bg-[#111] p-6 sm:p-8 lg:p-10 overflow-hidden">
+            <NoiseTexture className="opacity-40" />
+            <h3 className="relative z-10 text-sm font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Our Mission
             </h3>
-            <p className="text-[15px] leading-[1.75] text-[var(--hero-body)] sm:text-base">
+            <p className="relative z-10 text-[15px] leading-[1.75] text-[var(--hero-body)] sm:text-base">
               To revolutionize public safety through cutting-edge AI technology,
               providing real-time concealed weapon detection that protects
               communities, schools, and public spaces. We&apos;re committed to
@@ -39,11 +39,12 @@ export default function AboutSection() {
           </div>
 
           {/* Vision — left column */}
-          <div className="lg:col-start-1 lg:col-span-5 lg:row-start-2 rounded-none border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8 lg:p-10 flex flex-col">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
+          <div className="relative lg:col-start-1 lg:col-span-5 lg:row-start-2 rounded-none border border-white/[0.08] bg-[#0e0e0e] p-6 sm:p-8 lg:p-10 flex flex-col overflow-hidden">
+            <NoiseTexture className="opacity-40" />
+            <h3 className="relative z-10 text-sm font-semibold uppercase tracking-[0.2em] text-white/60 mb-4">
               Our Vision
             </h3>
-            <p className="text-[15px] leading-[1.75] text-[var(--hero-body)] sm:text-base flex-1">
+            <p className="relative z-10 text-[15px] leading-[1.75] text-[var(--hero-body)] sm:text-base flex-1">
               To become the global leader in AI-driven security solutions, making
               weapon detection accessible, affordable, and effective for every
               organization. We envision a future where advanced technology
@@ -52,16 +53,16 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Image — right column, spans both rows */}
-          <div className="lg:col-start-6 lg:col-span-7 lg:row-start-1 lg:row-span-2 relative order-first lg:order-none overflow-hidden rounded-none border border-white/[0.08] min-h-[240px] sm:min-h-[280px] lg:min-h-full">
+          {/* Image — right column, spans both rows; hidden on mobile */}
+          <div className="hidden sm:block lg:col-start-6 lg:col-span-7 lg:row-start-1 lg:row-span-2 relative overflow-hidden rounded-none border border-white/[0.08] sm:min-h-[280px] lg:min-h-full">
             <Image
               src="/images/mission.png"
               alt="Spairally — protecting communities with AI"
               fill
               className="object-cover object-center"
-              sizes="(max-width: 1023px) 100vw, 55vw"
+              sizes="(max-width: 640px) 0vw, 55vw"
             />
-            <ImageGrain />
+            <GrainOverlay position="absolute" />
             <div
               className="absolute inset-y-0 left-0 w-24 sm:w-32 lg:w-40 pointer-events-none z-10"
               style={{

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import AppStoreIcon from "@/app/svg/appstore";
 import PlayStoreIcon from "@/app/svg/playstore";
-import { ImageGrain } from "@/app/shared/grain";
+import GrainOverlay from "@/app/shared/grain";
+import { ParallaxImage } from "@/app/shared/parallax-image";
 
 type HeroProps = {
   loaded: boolean;
@@ -12,99 +13,108 @@ type HeroProps = {
 
 export default function Hero({ loaded, onHeroImageLoad }: HeroProps) {
   return (
-    <>
-      {/* Image: full bleed on mobile, right side on lg+ */}
-      <div className="absolute inset-0 lg:left-auto lg:right-0 lg:w-[52%] z-0">
+    <div className="relative z-20 flex w-full flex-col pt-[calc(var(--nav-height)+1.5rem)] sm:pt-[calc(var(--nav-height)+2rem)] lg:pt-[calc(var(--nav-height)+3rem)]">
+      {/* Mobile background image — visible only on small screens */}
+      <div className="pointer-events-none absolute inset-0 z-0 sm:hidden">
         <Image
           src="/images/hero.png"
-          alt="AI-powered concealed weapon detection"
+          alt=""
           fill
-          className="object-cover object-center blur-md lg:blur-none transition-[filter] duration-300"
+          className="object-cover object-center opacity-30"
           onLoad={onHeroImageLoad}
           priority
-          sizes="(max-width: 1023px) 100vw, 52vw"
+          sizes="100vw"
+          aria-hidden="true"
         />
-        <ImageGrain />
-        {/* Gradient overlays: stronger on mobile for text readability */}
-        <div
-          className="absolute inset-y-0 left-0 w-32 sm:w-40 lg:w-48 z-10 pointer-events-none"
-          style={{
-            background: "linear-gradient(to right, #080808 0%, transparent 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-24 sm:h-32 lg:h-40 z-10 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, #080808 0%, transparent 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-x-0 top-0 h-20 sm:h-24 lg:h-32 z-10 pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, #080808 0%, transparent 100%)",
-          }}
-        />
-        {/* Extra dark overlay on mobile for text contrast */}
-        <div
-          className="absolute inset-0 lg:hidden z-10 pointer-events-none opacity-50"
-          style={{
-            background: "linear-gradient(135deg, #080808 0%, transparent 50%)",
-          }}
-        />
+        <GrainOverlay position="absolute" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-[#080808]/40" />
       </div>
 
-      <div className="absolute left-0 top-0 z-20 flex h-full w-full lg:w-[52%] flex-col px-4 pt-[var(--nav-height)] pb-8 sm:px-6 sm:pb-12 lg:px-12 lg:pb-0">
-        <div className="flex-1 flex flex-col justify-center min-h-0">
-          <div className="flex flex-col max-w-[500px] w-full">
-            <div
-              className={`flex items-center gap-3 mb-6 ${loaded ? "anim-up-1" : "opacity-0"}`}
-            />
+      {/* Text area — same side padding as navbar */}
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-12">
+        {/* Radar arcs — concentric, emanating from bottom-left */}
+        <svg
+          className="pointer-events-none absolute bottom-0 left-0 z-0 hidden lg:block"
+          width="560"
+          height="560"
+          viewBox="0 0 560 560"
+          fill="none"
+          aria-hidden
+          style={{ transform: "translate(-15%, 30%)" }}
+        >
+          <circle cx="0" cy="560" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          <circle cx="0" cy="560" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
+          <circle cx="0" cy="560" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <circle cx="0" cy="560" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
+        </svg>
 
-            <h1
-              className={`font-extrabold tracking-[-0.035em] text-white mb-3 text-3xl sm:text-4xl lg:text-[52px] xl:text-[60px] leading-tight ${loaded ? "anim-up-2" : "opacity-0"}`}
+        <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-2 lg:gap-12">
+          {/* Left column — small note pinned to bottom on desktop */}
+          <div className="relative order-2 lg:order-1 lg:flex lg:flex-col lg:justify-end lg:pb-1">
+            <div
+              className={`flex items-start gap-3 ${
+                loaded ? "anim-up-4" : "opacity-0"
+              }`}
             >
-              <span className="block">Detect threats.</span>
-              <span className="block">Protect lives.</span>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="mt-0.5 shrink-0 text-white/40"
+                aria-hidden
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8l4 4-4 4" />
+              </svg>
+              <p className="text-[13px] leading-relaxed text-white/45 sm:text-sm">
+                Trusted by security teams across schools, venues & public
+                spaces.
+              </p>
+            </div>
+          </div>
+
+          {/* Right column — headline, description, CTAs */}
+          <div className="order-1 lg:order-2">
+            <h1
+              className={`font-extrabold tracking-[-0.04em] text-white text-[32px] leading-[1.08] sm:text-[44px] lg:text-[56px] xl:text-[64px] ${
+                loaded ? "anim-up-2" : "opacity-0"
+              }`}
+            >
+              Detect threats.
+              <br />
+              Protect lives.
             </h1>
 
             <p
-              className={`font-extrabold tracking-[-0.035em] mb-6 sm:mb-10 text-3xl sm:text-4xl lg:text-[52px] xl:text-[60px] leading-tight text-white/15 ${loaded ? "anim-up-2" : "opacity-0"}`}
+              className={`mt-5 max-w-[480px] text-[15px] leading-[1.7] text-white/60 sm:text-base lg:mt-6 lg:text-[17px] ${
+                loaded ? "anim-up-3" : "opacity-0"
+              }`}
             >
-              Before it&apos;s too late.
+              Spairally detects concealed weapons in real time using your
+              phone — silently, accurately, at scale. Instant alerts delivered
+              before it&apos;s too late.
             </p>
 
+            {/* CTAs — App Store + Google Play */}
             <div
-              className={`w-7 h-0.5 rounded-sm bg-white/20 mb-4 sm:mb-7 ${loaded ? "anim-up-3" : "opacity-0"}`}
-            />
-
-            <p
-              className={`mb-2 max-w-[380px] text-sm sm:text-base font-normal leading-relaxed text-white/60 tracking-wide ${loaded ? "anim-up-3" : "opacity-0"}`}
-            >
-              Threats don&apos;t announce themselves. Spairally detects concealed
-              weapons in real time — silently, accurately, at scale — and
-              delivers instant alerts directly to your phone.
-            </p>
-
-            <p
-              className={`mb-6 sm:mb-9 text-sm sm:text-base font-medium leading-snug text-white/85 tracking-wide ${loaded ? "anim-up-3" : "opacity-0"}`}
-            >
-              Every community deserves to feel safe.
-            </p>
-
-            <div
-              className={`flex flex-col sm:flex-row sm:flex-wrap items-stretch gap-3 sm:gap-3 mb-4 sm:mb-5 ${loaded ? "anim-up-4" : "opacity-0"}`}
+              className={`mt-8 flex flex-row flex-wrap items-center gap-3 sm:gap-4 lg:mt-10 ${
+                loaded ? "anim-up-4" : "opacity-0"
+              }`}
             >
               <a
                 href="#"
                 aria-label="Download on the App Store"
-                className="store-badge flex flex-1 min-h-[52px] min-w-0 sm:min-w-[160px] items-center justify-center gap-2.5 bg-white rounded-none py-3 px-5 sm:py-2.5 sm:px-4 no-underline text-neutral-900"
+                className="store-badge inline-flex items-center justify-center gap-3 bg-white rounded-none px-6 py-2.5 min-h-[46px] text-neutral-900 no-underline"
               >
-                <AppStoreIcon size={24} className="shrink-0" />
+                <AppStoreIcon size={20} className="shrink-0" />
                 <div className="flex flex-col gap-0.5 [color:inherit] text-left min-w-0">
-                  <span className="text-xs font-medium tracking-widest uppercase leading-none">
+                  <span className="text-[9px] font-medium tracking-widest uppercase leading-none">
                     Download on the
                   </span>
-                  <span className="text-base font-bold tracking-tight leading-none">
+                  <span className="text-[14px] font-bold tracking-tight leading-none">
                     App Store
                   </span>
                 </div>
@@ -113,28 +123,48 @@ export default function Hero({ loaded, onHeroImageLoad }: HeroProps) {
               <a
                 href="#"
                 aria-label="Get it on Google Play"
-                className="store-badge flex flex-1 min-h-[52px] min-w-0 sm:min-w-[160px] items-center justify-center gap-2.5 bg-white rounded-none py-3 px-5 sm:py-2.5 sm:px-4 no-underline text-neutral-900"
+                className="store-badge inline-flex items-center justify-center gap-3 bg-white rounded-none px-6 py-2.5 min-h-[46px] text-neutral-900 no-underline"
               >
-                <PlayStoreIcon size={24} className="shrink-0" />
+                <PlayStoreIcon size={20} className="shrink-0" />
                 <div className="flex flex-col gap-0.5 [color:inherit] text-left min-w-0">
-                  <span className="text-xs font-medium tracking-widest uppercase leading-none">
+                  <span className="text-[9px] font-medium tracking-widest uppercase leading-none">
                     Get it on
                   </span>
-                  <span className="text-base font-bold tracking-tight leading-none">
+                  <span className="text-[14px] font-bold tracking-tight leading-none">
                     Google Play
                   </span>
                 </div>
               </a>
             </div>
-
-            <p
-              className={`text-[10px] sm:text-[11px] font-normal text-white/32 tracking-wider leading-snug ${loaded ? "anim-up-5" : "opacity-0"}`}
-            >
-              Trusted by security teams across schools, venues & public spaces.
-            </p>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Hero image — same side padding as navbar so edges align with logo & CTA */}
+      <div
+        className={`mt-10 hidden w-full px-4 sm:mt-12 sm:block sm:px-6 lg:mt-16 lg:px-12 ${
+          loaded ? "anim-up-5" : "opacity-0"
+        }`}
+      >
+        <ParallaxImage
+          speed={0.04}
+          className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[16/8] lg:aspect-[16/7]"
+        >
+          <Image
+            src="/images/hero.png"
+            alt="AI-powered concealed weapon detection"
+            fill
+            className="object-cover object-center"
+            onLoad={onHeroImageLoad}
+            priority
+            sizes="(max-width: 640px) 0vw, 100vw"
+          />
+          <GrainOverlay position="absolute" />
+        </ParallaxImage>
+      </div>
+
+      {/* Extra bottom spacing on mobile since image is a bg */}
+      <div className="h-6 sm:hidden" />
+    </div>
   );
 }

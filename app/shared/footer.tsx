@@ -14,7 +14,7 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   return (
     <footer
-      className="footer-section relative border-t border-neutral-200 bg-white font-[var(--font-inter),system-ui,sans-serif text-neutral-900"
+      className="footer-section relative border-t border-neutral-200 bg-white font-[var(--font-inter),system-ui,sans-serif] text-neutral-900"
       role="contentinfo"
     >
       <GrainOverlay position="absolute" />

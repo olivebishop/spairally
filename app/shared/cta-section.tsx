@@ -8,7 +8,7 @@ import { ImageGrain } from "@/app/shared/grain";
 export default function CtaSection() {
   return (
     <section
-      className="relative isolate min-h-[420px] overflow-hidden bg-[#080808] font-[var(--font-inter),system-ui,sans-serif sm:min-h-[480px] lg:min-h-[520px]"
+      className="relative isolate min-h-[420px] overflow-hidden bg-[#080808] font-[var(--font-inter),system-ui,sans-serif] sm:min-h-[480px] lg:min-h-[520px]"
       aria-labelledby="cta-heading"
     >
       <GrainOverlay position="absolute" />
@@ -19,12 +19,12 @@ export default function CtaSection() {
           src="/images/footer.png"
           alt="Spairally app in action — instant threat detection alerts"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center opacity-20 sm:opacity-30 lg:opacity-100"
           sizes="(max-width: 1023px) 100vw, 52vw"
           priority={false}
         />
         <ImageGrain />
-        {/* Gradients to blend image into bg — same pattern as hero */}
+        {/* Gradients to blend image into bg */}
         <div
           className="absolute inset-y-0 left-0 w-32 sm:w-40 lg:w-48 z-10 pointer-events-none"
           style={{
@@ -43,18 +43,34 @@ export default function CtaSection() {
             background: "linear-gradient(to bottom, #080808 0%, transparent 100%)",
           }}
         />
-        {/* Extra dark overlay on mobile for text contrast */}
+        {/* Extra gradient overlay on mobile for text contrast */}
         <div
-          className="absolute inset-0 lg:hidden z-10 pointer-events-none opacity-40"
+          className="absolute inset-0 z-10 pointer-events-none lg:hidden"
           style={{
-            background: "linear-gradient(135deg, #080808 0%, transparent 50%)",
+            background: "linear-gradient(to bottom, #080808 0%, transparent 40%, #080808 100%)",
           }}
         />
       </div>
 
       {/* Content — overlaid on left, aligns with navbar/hero */}
       <div className="relative z-10 flex min-h-[420px] w-full flex-col justify-center px-4 py-16 sm:min-h-[480px] sm:px-6 sm:py-20 lg:min-h-[520px] lg:w-[52%] lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-[500px] w-full">
+        {/* Radar arcs — mirrored from hero, emanating from top-left */}
+        <svg
+          className="pointer-events-none absolute left-0 top-0 z-0 hidden lg:block"
+          width="520"
+          height="520"
+          viewBox="0 0 520 520"
+          fill="none"
+          aria-hidden
+          style={{ transform: "translate(-20%, -25%)" }}
+        >
+          <circle cx="0" cy="0" r="140" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          <circle cx="0" cy="0" r="240" stroke="rgba(255,255,255,0.055)" strokeWidth="1" />
+          <circle cx="0" cy="0" r="360" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <circle cx="0" cy="0" r="500" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
+        </svg>
+
+        <div className="relative z-10 mx-auto max-w-[500px] w-full">
           <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/50">
             Get early access
           </p>
