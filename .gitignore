@@ -44,3 +44,6 @@ next-env.d.ts
 /.agents/
 /skills/
 skills-lock.json
+
+# Local design notes (not for remote)
+/design.md
